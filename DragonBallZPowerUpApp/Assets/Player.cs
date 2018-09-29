@@ -6,20 +6,31 @@ using System.IO; //filestream
 using System.Runtime.Serialization.Formatters.Binary; //no effing idea
 
 public class Player : MonoBehaviour {
+    public WorkoutAddMenu Wom; 
+
     public int PowerLevel;
-    public List <Workout> Workouts = new List<Workout>();
+    public List<Workout> Workouts;
 
     private static string SaveFilePath = "/player.dat";
     
     public void Awake()
     {
         Load();
-        //printWorkouts();
+        if (Workouts == null)
+            Workouts = new List<Workout>();
+        printWorkouts(); 
+        setDelegates(); 
     }
-    public void AddWorkout(Workout w)
+
+    public void setDelegates()
     {
-        Workouts.Add(w);
-        Save(); 
+        Wom.workoutCreatedEvent += AddWorkout;
+    }
+    public void AddWorkout(Workout work)
+    {
+        Debug.Log(work.timeOfWorkout + " HERE IS TIME");
+        Workouts.Add(work);
+        Save();
     }
 
     public void printWorkouts()

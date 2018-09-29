@@ -431,7 +431,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc0c7d3a3295e72498cc4b27f16a099c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 269275742}
 --- !u!1 &203829952
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,6 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 880aba0beaebb294f822e0a4f27ff9e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Wom: {fileID: 198823632}
   PowerLevel: 0
   Workouts: []
 --- !u!4 &269275743
@@ -1020,7 +1020,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 198823632}
-        m_MethodName: AddWorkout
+        m_MethodName: CreateWorkout
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2787,9 +2787,6 @@ MonoBehaviour:
   ddReps: {fileID: 0}
   ddSets: {fileID: 0}
   ddWeight: {fileID: 0}
-  Name: 
-  Reps: 0
-  Weight: 0
 --- !u!1 &1469014798
 GameObject:
   m_ObjectHideFlags: 0

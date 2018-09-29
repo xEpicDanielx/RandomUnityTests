@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System; 
+using System;
+using System.IO; //filestream
+using System.Runtime.Serialization.Formatters.Binary; //no effing idea
 
 [Serializable]
-public class Workout : MonoBehaviour {
+public class Workout{
 
     public DateTime timeOfWorkout; 
 	// Use this for initialization

@@ -4,24 +4,18 @@ using UnityEngine;
 using UnityEngine.Events;
 using System; 
 
-public class WorkoutAddMenu : MonoBehaviour {
-    public Player player;
+public class WorkoutAddMenu :MonoBehaviour {
+    public delegate void WorkoutCreated(Workout w);
+    public WorkoutCreated workoutCreatedEvent =null; 
     
-    // Use this for initialization
-    void Start () {
-		
-	}
-
-    public Workout CreateWorkout()
+    public void CreateWorkout()
     {
-        Workout w = new Workout();
-        w.timeOfWorkout = DateTime.Now;
-        return w; 
+        Workout w = new Workout
+        {
+            timeOfWorkout = DateTime.Now
+        };
+        workoutCreatedEvent(w); 
     }
-    public void AddWorkout()
-    {
-        player.AddWorkout(CreateWorkout());
-       
-    }
+   
   
 }
