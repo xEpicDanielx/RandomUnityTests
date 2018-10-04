@@ -7,8 +7,8 @@ using System.Runtime.Serialization.Formatters.Binary; //no effing idea
 
 [Serializable]
 public class Workout{
-
-    public DateTime timeOfWorkout; 
+    public DateTime timeOfWorkout;
+    public Dictionary<string,Exercise> exercises; 
 	// Use this for initialization
     
 }

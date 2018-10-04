@@ -6,7 +6,7 @@ using System.IO; //filestream
 using System.Runtime.Serialization.Formatters.Binary; //no effing idea
 
 public class Player : MonoBehaviour {
-    public WorkoutAddMenu Wom; 
+    public WorkoutManager Wom; 
 
     public int PowerLevel;
     public List<Workout> Workouts;
@@ -18,7 +18,7 @@ public class Player : MonoBehaviour {
         Load();
         if (Workouts == null)
             Workouts = new List<Workout>();
-        printWorkouts(); 
+        //printWorkouts(); 
         setDelegates(); 
     }
 
@@ -26,6 +26,8 @@ public class Player : MonoBehaviour {
     {
         Wom.workoutCreatedEvent += AddWorkout;
     }
+
+
     public void AddWorkout(Workout work)
     {
         Debug.Log(work.timeOfWorkout + " HERE IS TIME");
