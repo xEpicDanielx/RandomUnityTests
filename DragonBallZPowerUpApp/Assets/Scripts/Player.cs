@@ -4,6 +4,7 @@ using UnityEngine;
 using System; 
 using System.IO; //filestream
 using System.Runtime.Serialization.Formatters.Binary; //no effing idea
+using Newtonsoft.Json;
 
 public class Player : MonoBehaviour {
 
@@ -57,7 +58,7 @@ public class Player : MonoBehaviour {
             PlayerData data = new PlayerData();
             data.powerLevel = PowerLevel;
             data.workouts = Workouts;
-            var dataJson = JsonUtility.ToJson(data,true);
+            var dataJson = JsonConvert.SerializeObject(data); 
 
             data.printWorkouts(); 
             File.WriteAllText(Application.persistentDataPath + SaveFilePath, dataJson);
@@ -81,7 +82,7 @@ public class Player : MonoBehaviour {
                 try
                 {
                   string fileJson = File.ReadAllText(Application.persistentDataPath + SaveFilePath);
-                  PlayerData data = JsonUtility.FromJson<PlayerData>(fileJson);
+                  PlayerData data = JsonConvert.DeserializeObject<PlayerData>(fileJson);
                 if (data != null)
                 {
                     PowerLevel = data.powerLevel;
