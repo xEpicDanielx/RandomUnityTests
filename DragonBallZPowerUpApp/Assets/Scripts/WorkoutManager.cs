@@ -11,7 +11,6 @@ public class WorkoutManager : MonoBehaviour {
     public ExerciseManager exMan;
     public Dictionary<string, Exercise> currentWorkout = new Dictionary<string, Exercise>();
 
-
     void Start()
     {
         exMan.exerciseAddedToWorkoutEvent += exerciseAdded;
@@ -19,12 +18,14 @@ public class WorkoutManager : MonoBehaviour {
 
     public void exerciseAdded(Dictionary<string,Exercise> cw)
     {
+        currentWorkout = cw; 
     }
     public void CreateWorkout()
     {
         Workout w = new Workout
         {
-            timeOfWorkout = DateTime.Now
+            timeOfWorkout = DateTime.Now,
+            exercises = currentWorkout
         };
         workoutCreatedEvent(w);
     }

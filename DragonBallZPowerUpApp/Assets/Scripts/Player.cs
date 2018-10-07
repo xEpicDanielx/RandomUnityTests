@@ -11,14 +11,21 @@ public class Player : MonoBehaviour {
     public int PowerLevel;
     public List<Workout> Workouts;
 
+    public bool clearData = true;
+    public bool printWorkoutFirst = true; 
+
     private static string SaveFilePath = "/player.dat";
     
     public void Awake()
     {
-        Load();
+
+            Load();
+
+
         if (Workouts == null)
             Workouts = new List<Workout>();
-        //printWorkouts(); 
+
+        printWorkouts(); 
         setDelegates(); 
     }
 
@@ -30,18 +37,30 @@ public class Player : MonoBehaviour {
 
     public void AddWorkout(Workout work)
     {
-        Debug.Log(work.timeOfWorkout + " HERE IS TIME");
         Workouts.Add(work);
         Save();
     }
 
     public void printWorkouts()
     {
-        foreach (Workout t in Workouts)
+        if (Workouts != null)
         {
-            Debug.Log(t.timeOfWorkout.ToString());
+            foreach (Workout t in Workouts)
+            {
+                foreach (KeyValuePair<string, Exercise> kvp in t.exercises)
+                {
+                    Debug.Log("NAME: " + kvp.Key);
+                    Debug.Log("Sets: " + kvp.Value.sets);
+                    Debug.Log("Reps: " + kvp.Value.reps);
+                    Debug.Log("Weight: " + kvp.Value.weight);
+                    Debug.Log("--------------------------------");
+                }
+            }
+            Debug.Log("=================END OF WORKOUT========================");
         }
-        Debug.Log("------------------");
+        else
+            Debug.Log("NOWORKOUT");
+
     }
     public void Save()
     {
@@ -55,7 +74,6 @@ public class Player : MonoBehaviour {
             PlayerData data = new PlayerData();
             data.powerLevel = PowerLevel;
             data.workouts = Workouts;
-
             bf.Serialize(file, data);
         }
         finally
@@ -65,7 +83,8 @@ public class Player : MonoBehaviour {
                 file.Dispose();
             }
         }
-        Debug.Log("Saved"); 
+        Debug.Log("Saved");
+  
     }
     public void Load()
     {
@@ -89,6 +108,12 @@ public class Player : MonoBehaviour {
                     }
                 }
             } 
+    }
+    public void ClearData()
+    {
+        PlayerPrefs.DeleteAll();
+        Debug.Log("DATA CLEARED");
+       
     }
 
 }

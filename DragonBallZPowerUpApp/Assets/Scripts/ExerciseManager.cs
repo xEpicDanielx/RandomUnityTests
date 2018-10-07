@@ -37,12 +37,12 @@ public class ExerciseManager : MonoBehaviour {
     }
     public void addExToWorkout(Exercise ex)
     {
-        if (currentWorkout.ContainsKey(ex.id))
+        if (currentWorkout.ContainsKey(ex.id)||currentWorkout==null)
             Debug.Log("EXERCISE ALREADY EXSISTS!");
         else
         {
             currentWorkout.Add(ex.id, ex);
-            printDictionary();
+            //printDictionary();
             exerciseAddedToWorkoutEvent(currentWorkout); 
         }
 

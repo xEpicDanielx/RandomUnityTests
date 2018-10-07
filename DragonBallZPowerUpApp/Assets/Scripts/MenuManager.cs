@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuManager : MonoBehaviour {
+
     public List<Transform> children;
     // Use this for initialization
     void Start() {
@@ -12,12 +13,6 @@ public class MenuManager : MonoBehaviour {
                 child.gameObject.SetActive(false);
             children.Add(child);
         }
-
-        /*Debug.Log("HERE IS LIST");
-        foreach (Transform c in children)
-        {
-            Debug.Log(c.name.ToString());
-        }*/
     }
 
     public void SetActiveMenu(Transform activeMenu)
