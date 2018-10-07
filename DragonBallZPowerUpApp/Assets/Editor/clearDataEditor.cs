@@ -13,6 +13,13 @@ public class clearDataEditor : Editor {
         {
             player.ClearData(); 
         }
+        if(GUILayout.Button("Print Data"))
+        {
+            player.printWorkouts();
+        }
+
+       
     }
+
 
 }

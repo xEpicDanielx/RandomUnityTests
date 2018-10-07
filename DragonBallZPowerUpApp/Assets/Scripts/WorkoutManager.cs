@@ -8,18 +8,13 @@ public class WorkoutManager : MonoBehaviour {
     public delegate void WorkoutCreated(Workout w);
     public WorkoutCreated workoutCreatedEvent = null;
 
-    public ExerciseManager exMan;
-    public Dictionary<string, Exercise> currentWorkout = new Dictionary<string, Exercise>();
+    public Dictionary<string, Exercise> currentWorkout;
 
-    void Start()
+    public void addToWorkout(Dictionary<string, Exercise> cW)
     {
-        exMan.exerciseAddedToWorkoutEvent += exerciseAdded;
+        currentWorkout = cW; 
     }
 
-    public void exerciseAdded(Dictionary<string,Exercise> cw)
-    {
-        currentWorkout = cw; 
-    }
     public void CreateWorkout()
     {
         Workout w = new Workout

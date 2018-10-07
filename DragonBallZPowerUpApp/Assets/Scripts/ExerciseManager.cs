@@ -5,9 +5,10 @@ using UnityEngine.UI;
 public class ExerciseManager : MonoBehaviour {
     [SerializeField]
     public Dictionary<string, Exercise> currentWorkout = new Dictionary<string, Exercise>();
+    
     //public Exercise currentExercise; 
     public Text eTitle, eSets, eReps, eWeight;
-    // Use this for initialization
+
 
     public delegate void ExerciseAddedToWorkout(Dictionary<string,Exercise> cw);
     public ExerciseAddedToWorkout exerciseAddedToWorkoutEvent;
@@ -42,7 +43,6 @@ public class ExerciseManager : MonoBehaviour {
         else
         {
             currentWorkout.Add(ex.id, ex);
-            //printDictionary();
             exerciseAddedToWorkoutEvent(currentWorkout); 
         }
 
@@ -59,6 +59,12 @@ public class ExerciseManager : MonoBehaviour {
             Debug.Log("--------------------------------");
         }
         Debug.Log("==========================================");
+    }
+
+    public void clearWorkout()
+    {
+        currentWorkout.Clear();
+
     }
 
 }

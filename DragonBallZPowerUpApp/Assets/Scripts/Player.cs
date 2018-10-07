@@ -6,33 +6,22 @@ using System.IO; //filestream
 using System.Runtime.Serialization.Formatters.Binary; //no effing idea
 
 public class Player : MonoBehaviour {
-    public WorkoutManager Wom; 
 
     public int PowerLevel;
     public List<Workout> Workouts;
-
-    public bool clearData = true;
-    public bool printWorkoutFirst = true; 
 
     private static string SaveFilePath = "/player.dat";
     
     public void Awake()
     {
-
-            Load();
-
-
+        Load();
+  
         if (Workouts == null)
             Workouts = new List<Workout>();
 
-        printWorkouts(); 
-        setDelegates(); 
+        //printWorkouts(); 
     }
 
-    public void setDelegates()
-    {
-        Wom.workoutCreatedEvent += AddWorkout;
-    }
 
 
     public void AddWorkout(Workout work)
@@ -43,11 +32,13 @@ public class Player : MonoBehaviour {
 
     public void printWorkouts()
     {
+
         if (Workouts != null)
         {
-            foreach (Workout t in Workouts)
+            foreach (Workout wo in Workouts)
             {
-                foreach (KeyValuePair<string, Exercise> kvp in t.exercises)
+                Debug.Log("----------------------------------:Workout Start:");
+                foreach (KeyValuePair<string, Exercise> kvp in wo.exercises)
                 {
                     Debug.Log("NAME: " + kvp.Key);
                     Debug.Log("Sets: " + kvp.Value.sets);
@@ -60,8 +51,10 @@ public class Player : MonoBehaviour {
         }
         else
             Debug.Log("NOWORKOUT");
-
+            
     }
+       
+    
     public void Save()
     {
         FileStream file = null;
@@ -97,8 +90,8 @@ public class Player : MonoBehaviour {
                     file = File.Open(Application.persistentDataPath + SaveFilePath, FileMode.Open);
 
                     PlayerData data = (PlayerData)bf.Deserialize(file);
-                    PowerLevel = data.powerLevel;
-                    Workouts = data.workouts; 
+                       PowerLevel = data.powerLevel;
+                        Workouts = data.workouts;
                 }
                 finally
                 {
@@ -111,8 +104,19 @@ public class Player : MonoBehaviour {
     }
     public void ClearData()
     {
-        PlayerPrefs.DeleteAll();
-        Debug.Log("DATA CLEARED");
+        if (File.Exists(Application.persistentDataPath + SaveFilePath))
+        {
+            try
+            {
+                File.Delete(Application.persistentDataPath + SaveFilePath); 
+            }
+            catch(Exception e)
+            {
+                Debug.Log("ERROR. Not Sure whatsup: " + e.ToString());
+            }
+        }
+
+        Debug.Log("Data Cleared"); 
        
     }
 
