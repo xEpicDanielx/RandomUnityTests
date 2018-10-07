@@ -44,11 +44,18 @@ public class Player : MonoBehaviour {
             Debug.Log("=================END OF WORKOUT========================");
         }
         else
-            Debug.Log("NOWORKOUT");
-            
+            Debug.Log("NOWORKOUT");         
     }
        
-    
+    public void addPowerLevel(int powerAddition)
+    {
+        PowerLevel += powerAddition;
+    }
+
+    public void printPowerLevel()
+    {
+        Debug.Log("POWER LEVEL: " + PowerLevel);
+    }
     public void Save()
     {
         FileStream file = null;

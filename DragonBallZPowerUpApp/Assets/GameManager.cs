@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
     public ExerciseManager exMan;
     public WorkoutManager workMan;
     public Player player;
+    public PowerLevelManager powerLevelManager; 
 
     // Use this for initialization
     void Start () {
@@ -31,5 +32,6 @@ public class GameManager : MonoBehaviour {
     {
         player.AddWorkout(w);
         exMan.clearWorkout();
+        player.addPowerLevel(powerLevelManager.powerToAdd()); 
     }
 }

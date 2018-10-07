@@ -18,6 +18,11 @@ public class clearDataEditor : Editor {
             player.printWorkouts();
         }
 
+        if(GUILayout.Button("Print Power Level"))
+        {
+            player.printPowerLevel();
+        }
+
        
     }
 
