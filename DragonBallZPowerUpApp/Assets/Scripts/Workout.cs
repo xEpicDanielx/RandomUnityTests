@@ -11,4 +11,15 @@ public class Workout{
     public Dictionary<string,Exercise> exercises; 
 	// Use this for initialization
     
+    public void PrintExercises()
+    {
+        foreach (KeyValuePair<string, Exercise> kvp in exercises)
+        {
+            Debug.Log("NAME: " + kvp.Key);
+            Debug.Log("Sets: " + kvp.Value.sets);
+            Debug.Log("Reps: " + kvp.Value.reps);
+            Debug.Log("Weight: " + kvp.Value.weight);
+            Debug.Log("--------------------------------");
+        }
+    }
 }

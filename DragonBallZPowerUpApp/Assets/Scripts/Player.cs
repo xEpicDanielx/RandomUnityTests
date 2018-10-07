@@ -37,15 +37,8 @@ public class Player : MonoBehaviour {
         {
             foreach (Workout wo in Workouts)
             {
-                Debug.Log("----------------------------------:Workout Start:");
-                foreach (KeyValuePair<string, Exercise> kvp in wo.exercises)
-                {
-                    Debug.Log("NAME: " + kvp.Key);
-                    Debug.Log("Sets: " + kvp.Value.sets);
-                    Debug.Log("Reps: " + kvp.Value.reps);
-                    Debug.Log("Weight: " + kvp.Value.weight);
-                    Debug.Log("--------------------------------");
-                }
+               Debug.Log("WORKOUT START:");
+               wo.PrintExercises();
             }
             Debug.Log("=================END OF WORKOUT========================");
         }
@@ -60,14 +53,15 @@ public class Player : MonoBehaviour {
         FileStream file = null;
         try
         {
-            BinaryFormatter bf = new BinaryFormatter();
- 
-            file = File.Open(Application.persistentDataPath + SaveFilePath, FileMode.OpenOrCreate);
-
+            printWorkouts();
             PlayerData data = new PlayerData();
             data.powerLevel = PowerLevel;
             data.workouts = Workouts;
-            bf.Serialize(file, data);
+            var dataJson = JsonUtility.ToJson(data,true);
+
+            data.printWorkouts(); 
+            File.WriteAllText(Application.persistentDataPath + SaveFilePath, dataJson);
+            Debug.Log(dataJson);
         }
         finally
         {
@@ -86,12 +80,15 @@ public class Player : MonoBehaviour {
                 FileStream file = null;
                 try
                 {
-                    BinaryFormatter bf = new BinaryFormatter();
-                    file = File.Open(Application.persistentDataPath + SaveFilePath, FileMode.Open);
-
-                    PlayerData data = (PlayerData)bf.Deserialize(file);
-                       PowerLevel = data.powerLevel;
-                        Workouts = data.workouts;
+                  string fileJson = File.ReadAllText(Application.persistentDataPath + SaveFilePath);
+                  PlayerData data = JsonUtility.FromJson<PlayerData>(fileJson);
+                if (data != null)
+                {
+                    PowerLevel = data.powerLevel;
+                    Workouts = data.workouts;
+                }
+                else
+                    Debug.Log("No Data");
                 }
                 finally
                 {
@@ -126,5 +123,29 @@ public class PlayerData
 {
     public int powerLevel;
     public List<Workout> workouts;
+
+    public void printWorkouts()
+    {
+
+        if (workouts != null)
+        {
+            foreach (Workout wo in workouts)
+            {
+                Debug.Log("----------------------------------:Workout Start:");
+                foreach (KeyValuePair<string, Exercise> kvp in wo.exercises)
+                {
+                    Debug.Log("NAME: " + kvp.Key);
+                    Debug.Log("Sets: " + kvp.Value.sets);
+                    Debug.Log("Reps: " + kvp.Value.reps);
+                    Debug.Log("Weight: " + kvp.Value.weight);
+                    Debug.Log("--------------------------------");
+                }
+            }
+            Debug.Log("=================END OF WORKOUT========================");
+        }
+        else
+            Debug.Log("NOWORKOUT");
+
+    }
 }
 

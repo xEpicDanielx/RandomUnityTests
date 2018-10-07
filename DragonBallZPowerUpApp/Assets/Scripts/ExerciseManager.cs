@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+
 public class ExerciseManager : MonoBehaviour {
     [SerializeField]
     public Dictionary<string, Exercise> currentWorkout = new Dictionary<string, Exercise>();
@@ -42,6 +43,7 @@ public class ExerciseManager : MonoBehaviour {
             Debug.Log("EXERCISE ALREADY EXSISTS!");
         else
         {
+            Debug.Log("FROM EX MAN: " + ex.id.ToString()); 
             currentWorkout.Add(ex.id, ex);
             exerciseAddedToWorkoutEvent(currentWorkout); 
         }
@@ -63,7 +65,7 @@ public class ExerciseManager : MonoBehaviour {
 
     public void clearWorkout()
     {
-        currentWorkout.Clear();
+        currentWorkout = new Dictionary<string, Exercise>(); 
 
     }
 
