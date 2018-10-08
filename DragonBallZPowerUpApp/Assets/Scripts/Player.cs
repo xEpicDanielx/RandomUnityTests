@@ -66,8 +66,7 @@ public class Player : MonoBehaviour {
             data.powerLevel = PowerLevel;
             data.workouts = Workouts;
             var dataJson = JsonConvert.SerializeObject(data); 
-
-            data.printWorkouts(); 
+            
             File.WriteAllText(Application.persistentDataPath + SaveFilePath, dataJson);
             Debug.Log(dataJson);
         }
@@ -131,29 +130,5 @@ public class PlayerData
 {
     public int powerLevel;
     public List<Workout> workouts;
-
-    public void printWorkouts()
-    {
-
-        if (workouts != null)
-        {
-            foreach (Workout wo in workouts)
-            {
-                Debug.Log("----------------------------------:Workout Start:");
-                foreach (KeyValuePair<string, Exercise> kvp in wo.exercises)
-                {
-                    Debug.Log("NAME: " + kvp.Key);
-                    Debug.Log("Sets: " + kvp.Value.sets);
-                    Debug.Log("Reps: " + kvp.Value.reps);
-                    Debug.Log("Weight: " + kvp.Value.weight);
-                    Debug.Log("--------------------------------");
-                }
-            }
-            Debug.Log("=================END OF WORKOUT========================");
-        }
-        else
-            Debug.Log("NOWORKOUT");
-
-    }
 }
 

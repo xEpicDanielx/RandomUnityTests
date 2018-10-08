@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System; 
 public class ExerciseManager : MonoBehaviour {
     [SerializeField]
     public Dictionary<string, Exercise> currentWorkout = new Dictionary<string, Exercise>();
@@ -11,8 +11,8 @@ public class ExerciseManager : MonoBehaviour {
     public Text eTitle, eSets, eReps, eWeight;
 
 
-    public delegate void ExerciseAddedToWorkout(Dictionary<string,Exercise> cw);
-    public ExerciseAddedToWorkout exerciseAddedToWorkoutEvent;
+    public delegate void ExerciseCreated(Dictionary<string,Exercise> cw);
+    public ExerciseCreated exerciseCreatedEvent;
 
     public void createExercise()
     {
@@ -26,8 +26,10 @@ public class ExerciseManager : MonoBehaviour {
         }
         else
         {
-            Exercise currentExercise = new Exercise(); 
-            currentExercise.id = eTitle.text;
+            Exercise currentExercise = new Exercise();
+
+            currentExercise.id = Guid.NewGuid();
+            currentExercise.type = eTitle.text;
             currentExercise.reps = eR;
             currentExercise.sets = eS;
             currentExercise.weight = eW;
@@ -39,13 +41,13 @@ public class ExerciseManager : MonoBehaviour {
     }
     public void addExToWorkout(Exercise ex)
     {
-        if (currentWorkout.ContainsKey(ex.id)||currentWorkout==null)
+        if (currentWorkout.ContainsKey(ex.type)||currentWorkout==null)
             Debug.Log("EXERCISE ALREADY EXSISTS!");
         else
         {
-            Debug.Log("FROM EX MAN: " + ex.id.ToString()); 
-            currentWorkout.Add(ex.id, ex);
-            exerciseAddedToWorkoutEvent(currentWorkout); 
+            Debug.Log("FROM EX MAN: " + ex.type.ToString()); 
+            currentWorkout.Add(ex.type, ex);
+            exerciseCreatedEvent(currentWorkout); 
         }
 
     }

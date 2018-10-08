@@ -8,18 +8,15 @@ using System.Runtime.Serialization.Formatters.Binary; //no effing idea
 [Serializable]
 public class Workout{
     public DateTime timeOfWorkout;
-    public Dictionary<string,Exercise> exercises; 
+    public Dictionary<string,Guid> exercises; 
 	// Use this for initialization
     
     public void PrintExercises()
     {
-        foreach (KeyValuePair<string, Exercise> kvp in exercises)
+        foreach (KeyValuePair<string, Guid> kvp in exercises)
         {
-            Debug.Log("NAME: " + kvp.Key);
-            Debug.Log("Sets: " + kvp.Value.sets);
-            Debug.Log("Reps: " + kvp.Value.reps);
-            Debug.Log("Weight: " + kvp.Value.weight);
-            Debug.Log("--------------------------------");
+            Exercise exercise = ExerciseTracker.idToExercises[kvp.Value];
+            Debug.Log(exercise); 
         }
     }
 }

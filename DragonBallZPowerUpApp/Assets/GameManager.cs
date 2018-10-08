@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq; 
 
 public class GameManager : MonoBehaviour {
     public ExerciseManager exMan;
     public WorkoutManager workMan;
     public Player player;
-    public PowerLevelManager powerLevelManager; 
+    public PowerLevelManager powerLevelManager;
+    public ExerciseTracker exerciseTracker; 
 
     // Use this for initialization
     void Start () {
@@ -15,7 +18,8 @@ public class GameManager : MonoBehaviour {
 	
     public void subscribeToDelegates()
     {
-        exMan.exerciseAddedToWorkoutEvent += exerciseAdded;
+        exMan.exerciseCreatedEvent += exerciseAdded;
+       
         workMan.workoutCreatedEvent += workoutCreated;
     }
 
@@ -24,8 +28,16 @@ public class GameManager : MonoBehaviour {
         foreach (KeyValuePair<string, Exercise> kvp in cw)
         {
             Debug.Log("NAME: " + kvp.Key);
+            exerciseTracker.addExercise(kvp.Value);
         }
-        workMan.addToWorkout(cw);
+        Dictionary<string, Guid> cw2 = cw.ToDictionary(kvp => kvp.Value.type, kvp => kvp.Value.id); 
+        workMan.addToWorkout(cw2);
+
+    }
+
+    public void addExercise()
+    {
+        Debug.Log("HI");
     }
 
     public void workoutCreated(Workout w)
