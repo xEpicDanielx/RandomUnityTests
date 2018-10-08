@@ -33,7 +33,7 @@ public class ExerciseManager : MonoBehaviour {
             currentExercise.reps = eR;
             currentExercise.sets = eS;
             currentExercise.weight = eW;
-           
+            Debug.Log("CURRENT GUID: " + currentExercise.id + "Current Type: " + currentExercise.type);
             addExToWorkout(currentExercise);
         }
    
@@ -45,7 +45,6 @@ public class ExerciseManager : MonoBehaviour {
             Debug.Log("EXERCISE ALREADY EXSISTS!");
         else
         {
-            Debug.Log("FROM EX MAN: " + ex.type.ToString()); 
             currentWorkout.Add(ex.type, ex);
             exerciseCreatedEvent(currentWorkout); 
         }
@@ -67,7 +66,7 @@ public class ExerciseManager : MonoBehaviour {
 
     public void clearWorkout()
     {
-        currentWorkout = new Dictionary<string, Exercise>(); 
+        currentWorkout.Clear(); 
 
     }
 

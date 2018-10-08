@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     public PowerLevelManager powerLevelManager;
     public ExerciseTracker exerciseTracker; 
 
+
     // Use this for initialization
     void Start () {
         subscribeToDelegates();
@@ -19,7 +20,6 @@ public class GameManager : MonoBehaviour {
     public void subscribeToDelegates()
     {
         exMan.exerciseCreatedEvent += exerciseAdded;
-       
         workMan.workoutCreatedEvent += workoutCreated;
     }
 
@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour {
             Debug.Log("NAME: " + kvp.Key);
             exerciseTracker.addExercise(kvp.Value);
         }
-        Dictionary<string, Guid> cw2 = cw.ToDictionary(kvp => kvp.Value.type, kvp => kvp.Value.id); 
+        Dictionary<string, Guid> cw2 = cw.ToDictionary(kvp => kvp.Value.type, kvp => kvp.Value.id);
+        Debug.Log(cw2);
         workMan.addToWorkout(cw2);
 
     }

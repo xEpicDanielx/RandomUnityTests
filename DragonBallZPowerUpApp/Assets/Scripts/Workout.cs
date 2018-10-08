@@ -10,11 +10,11 @@ public class Workout{
     public DateTime timeOfWorkout;
     public Dictionary<string,Guid> exercises; 
 	// Use this for initialization
-    
     public void PrintExercises()
     {
         foreach (KeyValuePair<string, Guid> kvp in exercises)
         {
+            Debug.Log("GUID: " + kvp.Value + "-- Type:" + kvp.Key);
             Exercise exercise = ExerciseTracker.idToExercises[kvp.Value];
             Debug.Log(exercise); 
         }
