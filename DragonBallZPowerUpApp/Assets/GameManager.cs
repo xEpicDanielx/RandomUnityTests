@@ -27,11 +27,14 @@ public class GameManager : MonoBehaviour {
     {
         foreach (KeyValuePair<string, Exercise> kvp in cw)
         {
-            Debug.Log("NAME: " + kvp.Key);
             exerciseTracker.addExercise(kvp.Value);
         }
-        Dictionary<string, Guid> cw2 = cw.ToDictionary(kvp => kvp.Value.type, kvp => kvp.Value.id);
-        Debug.Log(cw2);
+        //to dictionary (key slelctor, element selector)
+        //first lambda is how to get key, second is how to get element.
+        //turns type into key.. because this tracks individual exercise
+        //dictionary is now flipped. string first then guid!!!
+        Dictionary<string, Guid> cw2 = cw.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.id);
+
         workMan.addToWorkout(cw2);
 
     }
@@ -45,6 +48,15 @@ public class GameManager : MonoBehaviour {
     {
         player.AddWorkout(w);
         exMan.clearWorkout();
-        player.addPowerLevel(powerLevelManager.powerToAdd()); 
+        player.addPowerLevel(powerLevelManager.powerToAdd());
+        findHighestWorkout(w);
+    }
+    public void findHighestWorkout(Workout w)
+    {
+        //loops over all exercise types. then prints out highest for each type!
+        foreach(string exerciseType in w.exercises.Keys)
+        {
+            Debug.Log("HIGHEST SCORE FOR" + exerciseType + ": " + exerciseTracker.highestScore(exerciseType));
+        }
     }
 }

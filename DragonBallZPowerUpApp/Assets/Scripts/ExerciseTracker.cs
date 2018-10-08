@@ -23,6 +23,27 @@ public class ExerciseTracker : MonoBehaviour {
         Save(); 
     }
 
+    public Exercise highestScore(string type)
+    {
+        int highestValue =0;
+        Exercise bestExercise = null;
+
+        foreach (Exercise exercise in idToExercises.Values)
+        {
+           if(exercise.type == type)
+            {
+                if(exercise.weight > highestValue)
+                {
+                    bestExercise = exercise;
+                    highestValue = bestExercise.weight; 
+                }
+            }
+        }
+
+        return bestExercise; 
+        
+    }
+
     public void PrintExercises()
     {
         foreach (KeyValuePair<Guid, Exercise> kvp in idToExercises)
@@ -32,7 +53,7 @@ public class ExerciseTracker : MonoBehaviour {
         }
     }
 
-
+    #region Save Data
     public void Awake()
     {
         Load();
@@ -80,4 +101,5 @@ public class ExerciseTracker : MonoBehaviour {
             }
         }
     }
+    #endregion
 }
