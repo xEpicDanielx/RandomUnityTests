@@ -1,20 +1,28 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using System.Reflection;
 
 [CustomEditor(typeof(Player))]
 public class clearDataEditor : Editor {
-
+    bool clearConsole = false;
     public override void OnInspectorGUI()
     {
+       
         base.OnInspectorGUI();
 
         Player player = (Player)target;
-        if(GUILayout.Button("Clear Data"))
+
+        
+        clearConsole = EditorGUILayout.Toggle("Clear Data Before Printing", clearConsole);
+
+        if (GUILayout.Button("Clear Data"))
         {
             player.ClearData(); 
         }
         if(GUILayout.Button("Print Data"))
         {
+            if (clearConsole)
+                clearLogWindow();
             player.printWorkouts();
         }
 
@@ -23,8 +31,22 @@ public class clearDataEditor : Editor {
             player.printPowerLevel();
         }
 
-       
+
+        if (GUILayout.Button("Clear Debug Window"))
+        {
+            clearLogWindow();
+        }
+
+
+
     }
 
+    public void clearLogWindow()
+    {
+        var assembly = Assembly.GetAssembly(typeof(SceneView));
+        var type = assembly.GetType("UnityEditor.LogEntries");
+        var method = type.GetMethod("Clear");
+        method.Invoke(new object(), null);
+    }
 
 }
