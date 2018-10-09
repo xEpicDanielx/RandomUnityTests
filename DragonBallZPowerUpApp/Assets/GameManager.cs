@@ -19,29 +19,18 @@ public class GameManager : MonoBehaviour {
 	
     public void subscribeToDelegates()
     {
-        exMan.exerciseCreatedEvent += exerciseAdded;
+        exMan.exerciseAddedEvent += exerciseAdded;
         workMan.workoutCreatedEvent += workoutCreated;
     }
 
-    public void exerciseAdded(Dictionary<string, Exercise> cw)
+    public void exerciseAdded(Exercise ex)
     {
-        foreach (KeyValuePair<string, Exercise> kvp in cw)
-        {
-            exerciseTracker.addExercise(kvp.Value);
-        }
-        //to dictionary (key slelctor, element selector)
-        //first lambda is how to get key, second is how to get element.
-        //turns type into key.. because this tracks individual exercise
-        //dictionary is now flipped. string first then guid!!!
-        Dictionary<string, Guid> cw2 = cw.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.id);
-
-        workMan.addToWorkout(cw2);
-
+        exerciseTracker.addExercise(ex);
+        workMan.addToWorkout(ex);
     }
 
     public void addExercise()
     {
-        Debug.Log("HI");
     }
 
     public void workoutCreated(Workout w)

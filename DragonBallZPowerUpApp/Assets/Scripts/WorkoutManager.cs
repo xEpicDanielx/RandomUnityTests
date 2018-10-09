@@ -8,11 +8,11 @@ public class WorkoutManager : MonoBehaviour {
     public delegate void WorkoutCreated(Workout w);
     public WorkoutCreated workoutCreatedEvent = null;
 
-    public Dictionary<string, Guid> currentWorkout;
+    public Dictionary<string, Guid> currentWorkout = new Dictionary<string, Guid>();
 
-    public void addToWorkout(Dictionary<string, Guid> cW)
+    public void addToWorkout(Exercise ex)
     {
-        currentWorkout = cW; 
+        currentWorkout.Add(ex.type, ex.id);
     }
 
     public void CreateWorkout()

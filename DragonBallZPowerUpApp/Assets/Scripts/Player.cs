@@ -33,14 +33,18 @@ public class Player : MonoBehaviour {
 
     public void printWorkouts()
     {
+        int index = 1;
 
         if (Workouts != null)
         {
+            Debug.Log("You Have :" + Workouts.Count+ " Workouts"); 
             foreach (Workout wo in Workouts)
             {
-               Debug.Log("WORKOUT START:");
+               Debug.Log(index+") WORKOUT START:");
                wo.PrintExercises();
+                index++;
             }
+            
             Debug.Log("=================END OF WORKOUT========================");
         }
         else

@@ -7,19 +7,20 @@ using System.IO;
 
 public class ExerciseTracker : MonoBehaviour {
     //Exercise Name 
-    public static Dictionary<Guid, Exercise> idToExercises;
+    public static Dictionary<Guid, Exercise> dictOfAllExercises;
 
     private static string SaveFilePath = "/exercises.dat";
 
 
     public void addExercise(Exercise ex)
     {
-        if (idToExercises.ContainsKey(ex.id))
+        if (dictOfAllExercises.ContainsKey(ex.id))
         {
             Debug.Log("ATTEMPTED TO ADD EXISTING EXERCISE TO TRACKER");
             return;
         }
-        idToExercises.Add(ex.id, ex);
+        dictOfAllExercises.Add(ex.id, ex);
+        //printDict();
         Save(); 
     }
 
@@ -28,7 +29,7 @@ public class ExerciseTracker : MonoBehaviour {
         int highestValue =0;
         Exercise bestExercise = null;
 
-        foreach (Exercise exercise in idToExercises.Values)
+        foreach (Exercise exercise in dictOfAllExercises.Values)
         {
            if(exercise.type == type)
             {
@@ -46,20 +47,29 @@ public class ExerciseTracker : MonoBehaviour {
 
     public void PrintExercises()
     {
-        foreach (KeyValuePair<Guid, Exercise> kvp in idToExercises)
+        foreach (KeyValuePair<Guid, Exercise> kvp in dictOfAllExercises)
         {
             Exercise exercise = kvp.Value;
             Debug.Log(exercise);
         }
     }
+    public void printDict()
+    {
+        Debug.Log("FROM DICTIONARY");
+        foreach (Exercise exercise in dictOfAllExercises.Values)
+        {
+            Debug.Log(exercise);
+        }
 
+        Debug.Log("END");
+    }
     #region Save Data
     public void Awake()
     {
         Load();
 
-        if (idToExercises == null)
-            idToExercises = new Dictionary<Guid, Exercise>();
+        if (dictOfAllExercises == null)
+            dictOfAllExercises = new Dictionary<Guid, Exercise>();
 
     }
 
@@ -68,10 +78,10 @@ public class ExerciseTracker : MonoBehaviour {
         try
         {
 
-            var dataJson = JsonConvert.SerializeObject(idToExercises);
+            var dataJson = JsonConvert.SerializeObject(dictOfAllExercises);
 
             File.WriteAllText(Application.persistentDataPath + SaveFilePath, dataJson);
-            Debug.Log(dataJson);
+            //Debug.Log(dataJson);
         }
         catch(Exception e)
         {
@@ -90,7 +100,7 @@ public class ExerciseTracker : MonoBehaviour {
                 Dictionary<Guid, Exercise> data = JsonConvert.DeserializeObject<Dictionary<Guid,Exercise>>(fileJson);
                 if (data != null)
                 {
-                    idToExercises = data; 
+                    dictOfAllExercises = data; 
                 }
                 else
                     Debug.Log("No Exercises to load");
@@ -101,5 +111,48 @@ public class ExerciseTracker : MonoBehaviour {
             }
         }
     }
+    public void ClearData()
+    {
+        if (File.Exists(Application.persistentDataPath + SaveFilePath))
+        {
+            try
+            {
+                File.Delete(Application.persistentDataPath + SaveFilePath);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("ERROR. Not Sure whatsup: " + e.ToString());
+            }
+        }
+
+        Debug.Log("Data Cleared");
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     #endregion
 }

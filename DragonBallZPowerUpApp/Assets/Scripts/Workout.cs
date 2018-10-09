@@ -14,9 +14,8 @@ public class Workout{
     {
         foreach (KeyValuePair<string, Guid> kvp in exercises)
         {
-            Debug.Log("GUID: " + kvp.Value + "-- Type:" + kvp.Key);
-            Exercise exercise = ExerciseTracker.idToExercises[kvp.Value];
-            Debug.Log(exercise); 
+            Exercise exercise = ExerciseTracker.dictOfAllExercises[kvp.Value];
+            Debug.Log(exercise);
         }
     }
 }

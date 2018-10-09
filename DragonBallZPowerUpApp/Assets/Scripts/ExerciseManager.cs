@@ -11,8 +11,8 @@ public class ExerciseManager : MonoBehaviour {
     public Text eTitle, eSets, eReps, eWeight;
 
 
-    public delegate void ExerciseCreated(Dictionary<string,Exercise> cw);
-    public ExerciseCreated exerciseCreatedEvent;
+    public delegate void ExerciseCreated(Exercise exercise);
+    public ExerciseCreated exerciseAddedEvent;
 
     public void createExercise()
     {
@@ -33,7 +33,7 @@ public class ExerciseManager : MonoBehaviour {
             currentExercise.reps = eR;
             currentExercise.sets = eS;
             currentExercise.weight = eW;
-            Debug.Log("CURRENT GUID: " + currentExercise.id + "Current Type: " + currentExercise.type);
+
             addExToWorkout(currentExercise);
         }
    
@@ -46,7 +46,7 @@ public class ExerciseManager : MonoBehaviour {
         else
         {
             currentWorkout.Add(ex.type, ex);
-            exerciseCreatedEvent(currentWorkout); 
+            exerciseAddedEvent(ex); 
         }
 
     }
