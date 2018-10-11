@@ -5,11 +5,11 @@ using System.Reflection;
 [CustomEditor(typeof(Player))]
 public class clearDataEditor : Editor {
     bool clearConsole = false;
-    SerializedProperty workouts;
+   // SerializedProperty workouts;
 
     private void OnEnable()
     {
-        workouts = serializedObject.FindProperty("Workouts");
+       // workouts = serializedObject.FindProperty("Workouts");
     }
     public override void OnInspectorGUI()
     {
@@ -23,6 +23,7 @@ public class clearDataEditor : Editor {
         if (GUILayout.Button("Clear Data"))
         {
             player.ClearData();
+          
         }
         if(GUILayout.Button("Print Data"))
         {
