@@ -24,7 +24,7 @@ public class Player : MonoBehaviour {
         if (Workouts == null)
             Workouts = new List<Workout>();
 
-        //printWorkouts(); 
+        printWorkouts(); 
     }
 
 

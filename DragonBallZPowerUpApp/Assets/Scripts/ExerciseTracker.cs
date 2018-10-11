@@ -24,6 +24,7 @@ public class ExerciseTracker : MonoBehaviour {
         Save(); 
     }
 
+   
     public Exercise highestScore(string type)
     {
         int highestValue =0;
@@ -63,7 +64,6 @@ public class ExerciseTracker : MonoBehaviour {
 
         Debug.Log("END");
     }
-    #region Save Data
     public void Awake()
     {
         Load();
@@ -72,7 +72,6 @@ public class ExerciseTracker : MonoBehaviour {
             dictOfAllExercises = new Dictionary<Guid, Exercise>();
 
     }
-
     public void Save()
     {
         try
@@ -128,31 +127,4 @@ public class ExerciseTracker : MonoBehaviour {
         Debug.Log("Data Cleared");
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    #endregion
 }
