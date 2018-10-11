@@ -2,9 +2,9 @@
 using UnityEditor;
 using System.Reflection;
 
-[CustomEditor(typeof(Player))]
+[CustomEditor(typeof(GameManager))]
 public class clearDataEditor : Editor {
-    bool clearConsole = false;
+    bool clearConsole = true;
    // SerializedProperty workouts;
 
     private void OnEnable()
@@ -16,27 +16,27 @@ public class clearDataEditor : Editor {
        
         base.OnInspectorGUI();
 
-        Player player = (Player)target;
+        GameManager gm = (GameManager)target;
         
         clearConsole = EditorGUILayout.Toggle("Clear Data Before Printing", clearConsole);
 
         if (GUILayout.Button("Clear Data"))
         {
-            player.ClearData();
+            gm.ClearData();
           
         }
-        if(GUILayout.Button("Print Data"))
+        if(GUILayout.Button("Print Workouts"))
         {
             if (clearConsole)
                 clearLogWindow();
-            player.printWorkouts();
+            gm.printWorkouts();
         }
 
         if(GUILayout.Button("Print Power Level"))
         {
             if (clearConsole)
                 clearLogWindow();
-            player.printPowerLevel();
+            gm.player.printPowerLevel();
         }
 
 
@@ -69,7 +69,7 @@ public class clearExDataEditor : Editor
 
         if (GUILayout.Button("Clear Data"))
         {
-            et.ClearData();
+           // et.ClearData();
         }
     }
 }

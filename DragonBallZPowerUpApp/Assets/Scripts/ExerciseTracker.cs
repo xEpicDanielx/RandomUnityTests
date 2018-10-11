@@ -7,10 +7,7 @@ using System.IO;
 
 public class ExerciseTracker : MonoBehaviour {
     //Exercise Name 
-    public static Dictionary<Guid, Exercise> dictOfAllExercises;
-
-    private static string SaveFilePath = "/exercises.dat";
-
+    public Dictionary<Guid, Exercise> dictOfAllExercises;
 
     public void addExercise(Exercise ex)
     {
@@ -20,8 +17,6 @@ public class ExerciseTracker : MonoBehaviour {
             return;
         }
         dictOfAllExercises.Add(ex.id, ex);
-        //printDict();
-        Save(); 
     }
 
     public Exercise highestScore(string type)
@@ -66,68 +61,17 @@ public class ExerciseTracker : MonoBehaviour {
     #region Save Data
     public void Awake()
     {
-        Load();
 
         if (dictOfAllExercises == null)
             dictOfAllExercises = new Dictionary<Guid, Exercise>();
 
     }
 
-    public void Save()
+    public Dictionary<Guid, Exercise> getAllExercises()
     {
-        try
-        {
-
-            var dataJson = JsonConvert.SerializeObject(dictOfAllExercises);
-
-            File.WriteAllText(Application.persistentDataPath + SaveFilePath, dataJson);
-            //Debug.Log(dataJson);
-        }
-        catch(Exception e)
-        {
-            Debug.Log(e); 
-        }
-
-
+        return dictOfAllExercises; 
     }
-    public void Load()
-    {
-        if (File.Exists(Application.persistentDataPath + SaveFilePath))
-        {
-            try
-            {
-                string fileJson = File.ReadAllText(Application.persistentDataPath + SaveFilePath);
-                Dictionary<Guid, Exercise> data = JsonConvert.DeserializeObject<Dictionary<Guid,Exercise>>(fileJson);
-                if (data != null)
-                {
-                    dictOfAllExercises = data; 
-                }
-                else
-                    Debug.Log("No Exercises to load");
-            }
-            catch(Exception e)
-            {
-                Debug.Log(e); 
-            }
-        }
-    }
-    public void ClearData()
-    {
-        if (File.Exists(Application.persistentDataPath + SaveFilePath))
-        {
-            try
-            {
-                File.Delete(Application.persistentDataPath + SaveFilePath);
-            }
-            catch (Exception e)
-            {
-                Debug.Log("ERROR. Not Sure whatsup: " + e.ToString());
-            }
-        }
-
-        Debug.Log("Data Cleared");
-
-    }
+   
 
 
 
