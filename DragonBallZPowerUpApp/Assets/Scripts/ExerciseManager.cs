@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System; 
+using System;
+using helperTools; 
 public class ExerciseManager : MonoBehaviour {
     [SerializeField]
     public Dictionary<string, Exercise> currentWorkout = new Dictionary<string, Exercise>();
@@ -11,8 +12,8 @@ public class ExerciseManager : MonoBehaviour {
     public Text eTitle, eSets, eReps, eWeight;
 
 
-    public delegate void ExerciseCreated(Exercise exercise);
-    public ExerciseCreated exerciseAddedEvent;
+    public GenericDelegate<Exercise> ExerciseCreated;
+   
 
     public void createExercise()
     {
@@ -46,7 +47,7 @@ public class ExerciseManager : MonoBehaviour {
         else
         {
             currentWorkout.Add(ex.type, ex);
-            exerciseAddedEvent(ex); 
+            ExerciseCreated(ex); 
         }
 
     }

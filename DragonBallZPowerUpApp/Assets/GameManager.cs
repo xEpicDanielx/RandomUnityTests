@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour {
 	
     public void subscribeToDelegates()
     {
-        exMan.exerciseAddedEvent += exerciseAdded;
-        workMan.workoutCreatedEvent += workoutCreated;
+        exMan.ExerciseCreated += exerciseAdded;
+        workMan.WorkoutCreated += workoutCreated;
         player.PowerLevelChanged += showNewPowerLevel;
     }
 

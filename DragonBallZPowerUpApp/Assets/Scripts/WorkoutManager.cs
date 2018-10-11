@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System;
+using helperTools;
 
 public class WorkoutManager : MonoBehaviour {
-    public delegate void WorkoutCreated(Workout w);
-    public WorkoutCreated workoutCreatedEvent = null;
+    public GenericDelegate<Workout> WorkoutCreated;
 
     public Dictionary<string, Guid> currentWorkout = new Dictionary<string, Guid>();
 
@@ -22,7 +22,7 @@ public class WorkoutManager : MonoBehaviour {
             timeOfWorkout = DateTime.Now,
             exercises = currentWorkout
         };
-        workoutCreatedEvent(w);
+        WorkoutCreated(w);
     }
 
 }
