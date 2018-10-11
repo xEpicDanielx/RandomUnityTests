@@ -52,6 +52,20 @@ public class GameManager : MonoBehaviour {
         Save();
     }
 
+    public void showNewPowerLevel(int powerLevel)
+    {
+        avitarManager.CheckPowerLevel(powerLevel);
+    }
+
+    public void findHighestWorkout(Workout w)
+    {
+        //loops over all exercise types. then prints out highest for each type!
+        foreach (string exerciseType in w.exercises.Keys)
+        {
+            Debug.Log("HIGHEST SCORE FOR" + exerciseType + ": " + exerciseTracker.highestScore(exerciseType));
+        }
+    }
+
     public void printWorkouts()
     {
         if (File.Exists(appDataPath + PlayerSaveFilePath))
@@ -67,9 +81,9 @@ public class GameManager : MonoBehaviour {
                     player.Workouts = data.workouts;
 
 
-                    if (player.Workouts != null)
+                    if (data.workouts != null)
                     {
-                        Debug.Log("You Have :" + player.Workouts.Count + " Workouts");
+                        Debug.Log("You Have :" + data.workouts.Count + " Workouts");
                         Dictionary<Guid, Exercise> exerciser = exerciseTracker.getAllExercises();
                         int index = 1;
                         foreach (Workout wo in player.Workouts)
@@ -77,8 +91,10 @@ public class GameManager : MonoBehaviour {
                             Debug.Log("Workout: " + index);
                             foreach (KeyValuePair<string, Guid> kvp in wo.exercises)
                             {
-                                Exercise exercise = exerciser[kvp.Value];
-                                Debug.Log(exercise);
+                                Exercise ex = exerciser[kvp.Value];
+                                Debug.Log(ex);
+                                Debug.Log(ex.reps);
+                                
                             }
                             index += 1;
                         }
@@ -99,25 +115,13 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
-        else;
+        else
         {
             Debug.Log("NO FILE TO LOAD");
         }
     }
-    public void showNewPowerLevel(int powerLevel)
-    {
-        avitarManager.CheckPowerLevel(powerLevel); 
-    }
-    public void findHighestWorkout(Workout w)
-    {
-        //loops over all exercise types. then prints out highest for each type!
-        foreach(string exerciseType in w.exercises.Keys)
-        {
-            Debug.Log("HIGHEST SCORE FOR" + exerciseType + ": " + exerciseTracker.highestScore(exerciseType));
-        }
-    }
- 
 
+ 
     public static string PlayerSaveFilePath = "/player.dat";
     public static string ExerciseSaveFilePath = "/exercises.dat";
     public void Save()
@@ -206,9 +210,10 @@ public class GameManager : MonoBehaviour {
             }
         }
     }
-
     public void ClearData()
     {
+        player.clearWorkout();
+        exerciseTracker.clearEx();
         if (File.Exists(Application.persistentDataPath + PlayerSaveFilePath))
         {
             try

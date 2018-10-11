@@ -11,10 +11,8 @@ public class ExerciseManager : MonoBehaviour {
     //public Exercise currentExercise; 
     public Text eTitle, eSets, eReps, eWeight;
 
-
     public GenericDelegate<Exercise> ExerciseCreated;
    
-
     public void createExercise()
     {
         int eS, eR, eW;
@@ -45,11 +43,12 @@ public class ExerciseManager : MonoBehaviour {
         if (currentWorkout.ContainsKey(ex.type)||currentWorkout==null)
             Debug.Log("EXERCISE ALREADY EXSISTS!");
         else
+
         {
             currentWorkout.Add(ex.type, ex);
             ExerciseCreated(ex); 
         }
-
+       // printDictionary();
     }
     public void printDictionary()
     {

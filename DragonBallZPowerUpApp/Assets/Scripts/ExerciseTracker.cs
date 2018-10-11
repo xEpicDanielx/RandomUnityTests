@@ -16,7 +16,12 @@ public class ExerciseTracker : MonoBehaviour {
             Debug.Log("ATTEMPTED TO ADD EXISTING EXERCISE TO TRACKER");
             return;
         }
-        dictOfAllExercises.Add(ex.id, ex);
+        else
+        {
+
+            dictOfAllExercises.Add(ex.id, ex);
+        
+        }
     }
 
     public Exercise highestScore(string type)
@@ -66,7 +71,10 @@ public class ExerciseTracker : MonoBehaviour {
             dictOfAllExercises = new Dictionary<Guid, Exercise>();
 
     }
-
+    public void clearEx()
+    {
+        dictOfAllExercises = new Dictionary<Guid, Exercise>();
+    }
     public Dictionary<Guid, Exercise> getAllExercises()
     {
         return dictOfAllExercises; 

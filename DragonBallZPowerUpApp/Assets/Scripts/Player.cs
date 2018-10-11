@@ -13,9 +13,6 @@ public class Player : MonoBehaviour {
     public List<Workout> Workouts;
     public GenericDelegate<int> PowerLevelChanged; 
    
-    //public PowerLevelChanged powerLevelChangedEvent = null;
-
- 
     public void Awake()
     {
         if (Workouts == null)
@@ -23,8 +20,6 @@ public class Player : MonoBehaviour {
 
         //printWorkouts(); 
     }
-
-
 
     public void AddWorkout(Workout work)
     {
@@ -63,6 +58,10 @@ public class Player : MonoBehaviour {
         Debug.Log("POWER LEVEL: " + PowerLevel);
     }
 
+    public void clearWorkout()
+    {
+        Workouts = new List<Workout>();
+    }
 }
 [Serializable]
 public class PlayerData

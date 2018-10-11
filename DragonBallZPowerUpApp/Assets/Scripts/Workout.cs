@@ -18,4 +18,12 @@ public class Workout{
             Debug.Log(kvp.Key.ToString());
         }
     }
+
+    public void PrintExercises(Dictionary<Guid, Exercise> ex)
+    {
+        foreach (KeyValuePair<string, Guid> kvp in exercises)
+        {
+            Exercise exercise = ex[kvp.Value];
+        }
+    }
 }

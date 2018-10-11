@@ -23,6 +23,20 @@ public class WorkoutManager : MonoBehaviour {
             exercises = currentWorkout
         };
         WorkoutCreated(w);
+        printWorkout();
+        clearWorkout();
     }
 
+    public void clearWorkout()
+    {
+        currentWorkout.Clear();
+    }
+    public void printWorkout()
+    {
+        foreach(KeyValuePair<string,Guid> workout in currentWorkout)
+        {
+            Debug.Log("FROM HORSES MOUTH: ==========================================");
+            Debug.Log(workout.Key);
+        }
+    }
 }
