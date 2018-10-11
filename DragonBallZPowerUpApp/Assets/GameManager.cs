@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour {
     public WorkoutManager workMan;
     public Player player;
     public PowerLevelManager powerLevelManager;
-    public ExerciseTracker exerciseTracker; 
-
+    public ExerciseTracker exerciseTracker;
+    public AvitarManager avitarManager; 
 
     // Use this for initialization
     void Start () {
@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour {
     {
         exMan.exerciseAddedEvent += exerciseAdded;
         workMan.workoutCreatedEvent += workoutCreated;
+        player.PowerLevelChanged += showNewPowerLevel;
     }
 
     public void exerciseAdded(Exercise ex)
@@ -38,7 +39,14 @@ public class GameManager : MonoBehaviour {
         player.AddWorkout(w);
         exMan.clearWorkout();
         player.addPowerLevel(powerLevelManager.powerToAdd());
+        
+      
         findHighestWorkout(w);
+    }
+
+    public void showNewPowerLevel(int powerLevel)
+    {
+        avitarManager.CheckPowerLevel(powerLevel); 
     }
     public void findHighestWorkout(Workout w)
     {

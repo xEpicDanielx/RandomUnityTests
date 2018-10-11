@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PowerLevelManager : MonoBehaviour {
+    public delegate void PowerLevelIncrease(int pw);
+    public PowerLevelIncrease powerLevelIncreasedEvent = null;
     /// <summary>
     /// Improving a workout
     /// bonuses such as: Consistency
@@ -16,6 +18,8 @@ public class PowerLevelManager : MonoBehaviour {
     /// <returns></returns>
     public int powerToAdd()
     {
+        if(powerLevelIncreasedEvent!=null)
+            powerLevelIncreasedEvent(1000);
         return 1000;  
     }
    
