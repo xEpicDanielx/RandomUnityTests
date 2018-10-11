@@ -14,7 +14,6 @@ public class Exercise{
     public int reps;
     public int weight;
 
-
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();

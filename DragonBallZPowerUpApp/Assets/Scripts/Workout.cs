@@ -14,8 +14,16 @@ public class Workout{
     {
         foreach (KeyValuePair<string, Guid> kvp in exercises)
         {
-            Exercise exercise = ExerciseTracker.dictOfAllExercises[kvp.Value];
-            Debug.Log(exercise);
+            //Exercise exercise = ExerciseTracker.dictOfAllExercises[kvp.Value];
+            Debug.Log(kvp.Key.ToString());
+        }
+    }
+
+    public void PrintExercises(Dictionary<Guid, Exercise> ex)
+    {
+        foreach (KeyValuePair<string, Guid> kvp in exercises)
+        {
+            Exercise exercise = ex[kvp.Value];
         }
     }
 }
