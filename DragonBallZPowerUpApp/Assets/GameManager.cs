@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         appDataPath = Application.persistentDataPath;
-        Debug.Log(appDataPath);
         Load();
         subscribeToDelegates();
 	}
@@ -93,8 +92,7 @@ public class GameManager : MonoBehaviour {
                             {
                                 Exercise ex = exerciser[kvp.Value];
                                 Debug.Log(ex);
-                                Debug.Log(ex.reps);
-                                
+                                Debug.Log(string.Format("REPS:{0} | SETS:{1} | WEIGHT:{2}", ex.reps, ex.sets, ex.weight));                              
                             }
                             index += 1;
                         }
@@ -176,8 +174,6 @@ public class GameManager : MonoBehaviour {
                 {
                     player.PowerLevel = data.powerLevel;
                     player.Workouts = data.workouts;
-                    Debug.Log(player.PowerLevel);
-                    Debug.Log(player.Workouts);
                 }
                 else
                     Debug.Log("No Data");

@@ -18,7 +18,6 @@ public class Player : MonoBehaviour {
         if (Workouts == null)
             Workouts = new List<Workout>();
 
-        printWorkouts(); 
     }
 
     public void AddWorkout(Workout work)
@@ -26,25 +25,6 @@ public class Player : MonoBehaviour {
         Workouts.Add(work);
     }
 
-    public void printWorkouts()
-    {
-        int index = 1;
-
-        if (Workouts != null)
-        {
-            Debug.Log("You Have :" + Workouts.Count+ " Workouts"); 
-            foreach (Workout wo in Workouts)
-            {
-               Debug.Log(index+") WORKOUT START:");
-               wo.PrintExercises();
-                index++;
-            }
-            
-            Debug.Log("=================END OF WORKOUT========================");
-        }
-        else
-            Debug.Log("NOWORKOUT");         
-    }
        
     public void addPowerLevel(int powerAddition)
     {
