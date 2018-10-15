@@ -4,5 +4,7 @@ using UnityEngine;
 
 namespace helperTools
 {
-        public delegate void GenericDelegate<T>(T value);
+    public delegate void GenericDelegate();
+    public delegate void GenericDelegate<T>(T value);
+    
 }

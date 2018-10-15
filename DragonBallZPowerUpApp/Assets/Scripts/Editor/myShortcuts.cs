@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MyShortcuts : Editor
 {
-    [MenuItem("GameObject/ActiveToggle _q")]
+    [MenuItem("GameObject/ActiveToggle %e")]
     static void ToggleActivationSelection()
     {
         var go = Selection.activeGameObject;

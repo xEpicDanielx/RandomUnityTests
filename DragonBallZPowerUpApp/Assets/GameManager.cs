@@ -14,10 +14,16 @@ public class GameManager : MonoBehaviour {
     public PowerLevelManager powerLevelManager;
     public ExerciseTracker exerciseTracker;
     public AvitarManager avitarManager;
+    public MenuManager menuManager;
+    
 
-
-    public static string appDataPath;
-
+    public enum GameState
+    {
+        Settings,
+        WorkoutScreen,
+        ExerciseScreen 
+    }
+    
     // Use this for initialization
     void Start () {
         appDataPath = Application.persistentDataPath;
@@ -29,6 +35,8 @@ public class GameManager : MonoBehaviour {
     {
         exMan.ExerciseCreated += exerciseAdded;
         workMan.WorkoutCreated += workoutCreated;
+
+        menuManager.newScreenSelected += getPlayerInfo;
         player.PowerLevelChanged += showNewPowerLevel;
     }
 
@@ -54,6 +62,7 @@ public class GameManager : MonoBehaviour {
     public void showNewPowerLevel(int powerLevel)
     {
         avitarManager.CheckPowerLevel(powerLevel);
+        menuManager.setBackgroundImage(powerLevel);
     }
 
     public void findHighestWorkout(Workout w)
@@ -63,6 +72,11 @@ public class GameManager : MonoBehaviour {
         {
             Debug.Log("HIGHEST SCORE FOR" + exerciseType + ": " + exerciseTracker.highestScore(exerciseType));
         }
+    }
+
+    public void getPlayerInfo()
+    {
+        menuManager.UpdatePlayerInfo(player);
     }
 
     public void printWorkouts()
@@ -119,7 +133,8 @@ public class GameManager : MonoBehaviour {
         }
     }
 
- 
+    #region Save Data
+    public static string appDataPath;
     public static string PlayerSaveFilePath = "/player.dat";
     public static string ExerciseSaveFilePath = "/exercises.dat";
     public void Save()
@@ -239,4 +254,5 @@ public class GameManager : MonoBehaviour {
 
 
     }
+    #endregion
 }
