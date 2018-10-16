@@ -63,7 +63,6 @@ public class ExerciseManager : MonoBehaviour {
         }
         Debug.Log("==========================================");
     }
-
     public void clearWorkout()
     {
         currentWorkout.Clear(); 

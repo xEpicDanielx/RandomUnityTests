@@ -35,7 +35,6 @@ public class WorkoutManager : MonoBehaviour {
     {
         foreach(KeyValuePair<string,Guid> workout in currentWorkout)
         {
-            Debug.Log("FROM HORSES MOUTH: ==========================================");
             Debug.Log(workout.Key);
         }
     }

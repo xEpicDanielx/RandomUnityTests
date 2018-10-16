@@ -9,7 +9,9 @@ public class MenuManager : MonoBehaviour {
     public List<Transform> children;
     public Player player; 
     public PlayerInfoMenu pInfoMenu;
-    public GenericDelegate newScreenSelected; 
+    public GenericDelegate newScreenSelected;
+
+    public Stack<Transform> visitHistory = new Stack<Transform>(); 
 
     public Sprite[] backgroundImageSelections = new Sprite[2];
     
@@ -36,6 +38,7 @@ public class MenuManager : MonoBehaviour {
 
     public void SetActiveMenu(Transform activeMenu)
    {
+        Debug.Log(activeMenu.name.ToString());
         if(children.Contains(activeMenu))
         {
             foreach (Transform child in transform)
@@ -46,7 +49,8 @@ public class MenuManager : MonoBehaviour {
                     child.gameObject.SetActive(true); 
             }
         }
-        newScreenSelected(); 
+        newScreenSelected();
+        visitHistory.Push(activeMenu);
    }
 
 
@@ -59,4 +63,26 @@ public class MenuManager : MonoBehaviour {
         else
             backgroundImage.sprite = backgroundImageSelections[0];
     }
+
+    public void printStack()
+    {
+        foreach(Transform t in visitHistory)
+        {
+            Debug.Log(t.name.ToString());
+        }
+    }
+
+    public void popStack()
+    {
+        Transform lastScreen = visitHistory.Peek();
+        SetActiveMenu(lastScreen); 
+        Debug.Log(lastScreen.name.ToString());
+        Debug.Log("---");
+        visitHistory.Pop();
+
+        Transform nlastScreen = visitHistory.Peek();
+        Debug.Log(nlastScreen.name.ToString());
+    }
+
+
 }
