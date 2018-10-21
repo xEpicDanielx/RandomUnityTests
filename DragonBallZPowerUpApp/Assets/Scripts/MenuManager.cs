@@ -10,6 +10,7 @@ public class MenuManager : MonoBehaviour {
     public Player player; 
     public PlayerInfoMenu pInfoMenu;
     public GenericDelegate newScreenSelected;
+    public Transform lastScreen; 
 
     public Stack<Transform> visitHistory = new Stack<Transform>(); 
 
@@ -19,7 +20,7 @@ public class MenuManager : MonoBehaviour {
     void Start() {
         foreach (Transform child in transform)
         {
-            if (child.name != "CreateWorkout_Menu")
+            if (child.name != "Start_Menu")
                 child.gameObject.SetActive(false);
             children.Add(child);
         }
@@ -38,19 +39,24 @@ public class MenuManager : MonoBehaviour {
 
     public void SetActiveMenu(Transform activeMenu)
    {
-        Debug.Log(activeMenu.name.ToString());
+        
         if(children.Contains(activeMenu))
         {
             foreach (Transform child in transform)
             {
                 if (child != activeMenu)
+                {
                     child.gameObject.SetActive(false);
+                   
+                }
                 else
-                    child.gameObject.SetActive(true); 
+                {
+                    child.gameObject.SetActive(true);
+                    Debug.Log("HIIMHERE");
+                } 
             }
         }
         newScreenSelected();
-        visitHistory.Push(activeMenu);
    }
 
 
@@ -66,22 +72,26 @@ public class MenuManager : MonoBehaviour {
 
     public void printStack()
     {
+        Debug.Log("STARTING:");
         foreach(Transform t in visitHistory)
         {
             Debug.Log(t.name.ToString());
         }
+
+        Debug.Log("END");
     }
 
     public void popStack()
     {
-        Transform lastScreen = visitHistory.Peek();
-        SetActiveMenu(lastScreen); 
-        Debug.Log(lastScreen.name.ToString());
-        Debug.Log("---");
+ 
+      
+   
         visitHistory.Pop();
-
+        Transform lastScreen = visitHistory.Peek();
+        SetActiveMenu(lastScreen);
         Transform nlastScreen = visitHistory.Peek();
-        Debug.Log(nlastScreen.name.ToString());
+
+        Debug.Log("NEW LAST STRING:"+nlastScreen.name.ToString());
     }
 
 
