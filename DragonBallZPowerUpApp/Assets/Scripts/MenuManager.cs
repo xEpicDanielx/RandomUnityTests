@@ -21,8 +21,14 @@ public class MenuManager : MonoBehaviour {
         foreach (Transform child in transform)
         {
             if (child.name != "Start_Menu")
+            {
                 child.gameObject.SetActive(false);
-            children.Add(child);
+            }
+            else
+            {
+                pushStack(child);
+            }
+
         }
         newScreenSelected();
        
@@ -39,23 +45,7 @@ public class MenuManager : MonoBehaviour {
 
     public void SetActiveMenu(Transform activeMenu)
    {
-        
-        if(children.Contains(activeMenu))
-        {
-            foreach (Transform child in transform)
-            {
-                if (child != activeMenu)
-                {
-                    child.gameObject.SetActive(false);
-                   
-                }
-                else
-                {
-                    child.gameObject.SetActive(true);
-                    Debug.Log("HIIMHERE");
-                } 
-            }
-        }
+        pushStack(activeMenu); 
         newScreenSelected();
    }
 
@@ -83,16 +73,26 @@ public class MenuManager : MonoBehaviour {
 
     public void popStack()
     {
- 
-      
-   
-        visitHistory.Pop();
-        Transform lastScreen = visitHistory.Peek();
-        SetActiveMenu(lastScreen);
-        Transform nlastScreen = visitHistory.Peek();
-
-        Debug.Log("NEW LAST STRING:"+nlastScreen.name.ToString());
+        if(visitHistory.Count > 1)
+        {
+            visitHistory.Pop().gameObject.SetActive(false);
+            visitHistory.Peek().gameObject.SetActive(true);
+        }
     }
+    
+    public void pushStack(Transform page)
+    {
+       
+        if (visitHistory.Count != 0)
+        {
+            Transform lastPage = visitHistory.Peek();
+            lastPage.gameObject.SetActive(false);
+        }
+          
 
+        visitHistory.Push(page);
 
+       
+        page.gameObject.SetActive(true); 
+    }
 }
