@@ -10,7 +10,8 @@ public class MenuManager : MonoBehaviour {
     public Player player; 
     public PlayerInfoMenu pInfoMenu;
     public GenericDelegate newScreenSelected;
-    public Transform lastScreen; 
+    public Transform lastScreen;
+    public Transform startingMenu; 
 
     public Stack<Transform> visitHistory = new Stack<Transform>(); 
 
@@ -18,9 +19,10 @@ public class MenuManager : MonoBehaviour {
     
     // Use this for initialization
     void Start() {
+
         foreach (Transform child in transform)
         {
-            if (child.name != "Start_Menu")
+            if (child.name != startingMenu.name)
             {
                 child.gameObject.SetActive(false);
             }

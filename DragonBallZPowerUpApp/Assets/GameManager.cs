@@ -15,8 +15,10 @@ public class GameManager : MonoBehaviour {
     public ExerciseTracker exerciseTracker;
     public AvitarManager avitarManager;
     public MenuManager menuManager;
-    
 
+    public ExerciseMenuDisplay emd;
+    public int numberOfInstances = 10;
+    public GameObject view; 
     public enum GameState
     {
         Settings,
@@ -29,8 +31,19 @@ public class GameManager : MonoBehaviour {
         appDataPath = Application.persistentDataPath;
         Load();
         subscribeToDelegates();
+        testFunction();
 	}
 	
+    public void testFunction()
+    {
+        for(int i = 0; i<numberOfInstances; i++)
+        {
+            ExerciseMenuDisplay em = Instantiate(emd,view.transform,true);
+            em.title.text = "HUH";
+            em.setsNReps.text = "OHH";
+        }
+       
+    }
     public void subscribeToDelegates()
     {
         exMan.ExerciseCreated += exerciseAdded;
