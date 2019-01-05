@@ -18,7 +18,9 @@ public class GameManager : MonoBehaviour {
 
     public ExerciseMenuDisplay emd;
     public int numberOfInstances = 10;
-    public GameObject view; 
+    public GameObject view;
+    //public Transform workoutDisplay; 
+    public WorkoutShow ws; 
     public enum GameState
     {
         Settings,
@@ -36,12 +38,26 @@ public class GameManager : MonoBehaviour {
 	
     public void testFunction()
     {
-        for(int i = 0; i<numberOfInstances; i++)
+        foreach(Workout w in player.Workouts)
+        {
+            ExerciseMenuDisplay em = Instantiate(emd, view.transform, true);
+            em.menuManager = menuManager;
+            em.centerText.text = w.timeOfWorkout.ToShortDateString();
+            em.setTargetMenu(ws);
+            em.upperText.text = "";
+            em.lowerText.text = "";
+            em.workout = w; 
+           
+        }
+        /*for(int i = 0; i<numberOfInstances; i++)
         {
             ExerciseMenuDisplay em = Instantiate(emd,view.transform,true);
-            em.title.text = "HUH";
-            em.setsNReps.text = "OHH";
-        }
+            em.menuManager = menuManager;
+            em.centerText.text = "WORKOUT";
+            em.setTargetMenu(workoutDisplay);
+            em.upperText.text = "HUH";
+            em.lowerText.text = "OHH";
+        }*/
        
     }
     public void subscribeToDelegates()

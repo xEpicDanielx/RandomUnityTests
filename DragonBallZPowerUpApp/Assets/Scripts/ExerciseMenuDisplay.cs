@@ -4,18 +4,52 @@ using UnityEngine;
 using TMPro; 
 
 public class ExerciseMenuDisplay : MonoBehaviour {
-
-    public TextMeshProUGUI title;
-    public TextMeshProUGUI setsNReps;
-    // Use this for initialization
-    void Start()
+    public MenuManager menuManager; 
+    public TextMeshProUGUI upperText;
+    public TextMeshProUGUI lowerText;
+    public TextMeshProUGUI centerText;
+    public Transform targetMenu;
+    public WorkoutShow ws; 
+    public Workout workout; 
+    public enum layoutType
     {
-  
+        pastWorkout,
+        exerciseDisplay
+    };
+   
+    public void setLayout(layoutType layout)
+    {
+        switch (layout)
+        {
+            case layoutType.pastWorkout:
+                upperText.gameObject.SetActive(false); 
+                lowerText.gameObject.SetActive(false);
+               centerText.gameObject.SetActive(true); 
+                break;
+            case layoutType.exerciseDisplay:
+                upperText.gameObject.SetActive(true);
+                lowerText.gameObject.SetActive(true);
+                centerText.gameObject.SetActive(false);
+                break;
+            default:
+                break; 
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+   /* public void setTargetMenu(Transform target)
     {
+        targetMenu = target;
+    }*/
 
+    public void setTargetMenu(WorkoutShow workoutShow)
+    {
+        ws = workoutShow;
     }
+
+    public void showWorkout()
+    {
+        ws.setWorkoutText(workout);
+        menuManager.SetActiveMenu(ws.transform);
+    }
+
 }
